@@ -1,6 +1,6 @@
 const Router = require("express").Router();
 
-// GET /api/v1/listing-item/
+// GET /api/v1/ListingItem/
 //TODO: Add controller.
 Router.get("/", (req, res) => {
   return res.json({
