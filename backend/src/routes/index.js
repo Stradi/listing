@@ -1,15 +1,8 @@
 const Router = require("express").Router();
+const UrlBuilder = require("../helpers").UrlBuilder;
 
-Router.get("/", (req, res) => {
+Router.get(UrlBuilder.BaseApiRoute, (req, res) => {
   res.json({
-    route: "/",
-    message: "Working!"
-  })
-})
-
-Router.get("/api/v1", (req, res) => {
-  res.json({
-    route: "/api/v1",
     message: "Working!"
   });
 });
