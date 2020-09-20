@@ -2,7 +2,7 @@ const Model = require("../models").Category;
 
 const _getAll = async () => {
   try {
-    const response = await Model.find();
+    const response = await Model.find().populate("items");
     return { data: response }
   } catch(error) {
     return { error }
@@ -11,7 +11,7 @@ const _getAll = async () => {
 
 const _findById = async (id) => {
   try {
-    const response = await Model.findById(id);
+    const response = await Model.findById(id).populate("items");
     return { data: response }
   } catch(error) {
     return { error }
