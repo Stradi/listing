@@ -1,4 +1,5 @@
 const Model = require("../models").Category;
+const ListingItemService = require("./ListingItem");
 
 const _getAll = async () => {
   try {
@@ -42,7 +43,9 @@ const _update = async (id, data) => {
 const _delete = async (id) => {
   try {
     const response = await Model.findByIdAndDelete(id);
-    //TODO: Update all ListingItem's category field.
+    const listingItemResponse = await ListingItemService.DeleteByCategory(id);
+    if(listingItemResponse.error) { return { error: listingItemResponse.error }}
+
     return { data: response }
   } catch(error) {
     return { error }
