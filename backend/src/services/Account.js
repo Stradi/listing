@@ -1,4 +1,5 @@
 const Model = require("../models").Account;
+const PasswordHelper = require("../helpers").Password;
 
 const _getAll = async () => {
   try {
@@ -20,7 +21,14 @@ const _findById = async (id) => {
 
 const _create = async (data) => {
   try {
-    const response = await new Model(data).save();
+    const passwordData = PasswordHelper.HashPassword(data.password);
+    const response = await new Model({
+      username: data.username,
+      email: data.email,
+      passwordHash: passwordData.hash,
+      passwordSalt: passwordData.salt
+    }).save();
+
     return { data: response }
   } catch(error) {
     return { error }
@@ -32,7 +40,9 @@ const _update = async (id, data) => {
     const item = await _findById(id);
     if(item.error) { return { error: item.error }}
 
-    const response = await item.data.updateOne(data);
+    const response = await item.data.updateOne({
+      username: data.username || item.data.username,
+    });
     return { data: "Success" }
   } catch(error) {
     return { error }
