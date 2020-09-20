@@ -17,4 +17,8 @@ Router.post("/", Controller.Create);
 // Updates existing Category object
 Router.patch("/:id", Controller.Update);
 
+// DELETE /api/v1/Category/:id
+// Deletes a Category object
+Router.delete("/:id", Controller.Delete);
+
 module.exports = Router;

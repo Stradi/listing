@@ -7,7 +7,7 @@ const SchemaTypes = mongoose.SchemaTypes;
 const ListingItemSchema = new Schema({
   name: { type: SchemaTypes.String, required: true },
   description: { type: SchemaTypes.String },
-  category: { type: SchemaTypes.ObjectId, ref: "Category", required: true }
+  category: { type: SchemaTypes.ObjectId, ref: "Category" }
   //TODO: Fill it later.
 });
 

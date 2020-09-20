@@ -39,6 +39,16 @@ const _update = async (id, data) => {
   }
 }
 
+const _delete = async (id) => {
+  try {
+    const response = await Model.findByIdAndDelete(id);
+    //TODO: Update all ListingItem's category field.
+    return { data: response }
+  } catch(error) {
+    return { error }
+  }
+}
+
 const _addItem = async (id, data) => {
   try {
     const response = await Model.findByIdAndUpdate(id, { $push: { items: data.id }});
@@ -61,5 +71,6 @@ module.exports.GetAll = _getAll;
 module.exports.FindById = _findById;
 module.exports.Create = _create;
 module.exports.Update = _update;
+module.exports.Delete = _delete;
 module.exports.AddItem = _addItem;
 module.exports.DeleteItem = _deleteItem;

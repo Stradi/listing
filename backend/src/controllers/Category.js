@@ -41,7 +41,17 @@ const _update = async (req, res) => {
   }
 }
 
+const _delete = async (req, res) => {
+  const obj = await Service.Delete(req.params.id);
+  if(obj.error) {
+    return res.json({ error: obj.error });
+  } else {
+    return res.json({ data: obj.data });
+  }
+}
+
 module.exports.GetAll = _getAll;
 module.exports.FindById = _findById;
 module.exports.Create = _create;
 module.exports.Update = _update;
+module.exports.Delete = _delete;
