@@ -5,8 +5,13 @@ const _getAll = async () => {
 }
 
 const _findById = async (id) => {
-  return await Model.findOne({ id });
+  return await Model.findById(id);
+}
+
+const _create = async (data) => {
+  return await new Model(data).save();
 }
 
 module.exports.GetAll = _getAll;
 module.exports.FindById = _findById;
+module.exports.Create = _create;

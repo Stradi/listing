@@ -9,4 +9,8 @@ Router.get("/", Controller.GetAll);
 // Find ListingItem object by ID
 Router.get("/:id", Controller.FindById);
 
+// POST /api/v1/ListingItem/
+// Create new ListingItem object
+Router.post("/", Controller.Create);
+
 module.exports = Router;

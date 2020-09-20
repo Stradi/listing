@@ -6,6 +6,8 @@ const database = require("./src/helpers").Database;
 database.ConnectDatabase();
 
 const app = express();
+app.use(express.json());
+
 const routes = require("./src/routes");
 app.use(routes);
 
