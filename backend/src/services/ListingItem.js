@@ -43,7 +43,20 @@ const _update = async (id, data) => {
   }
 }
 
+const _delete = async (id) => {
+  try {
+    const response = await Model.findOneAndDelete({ _id: id });
+    const categoryResponse = await CategoryService.DeleteItem(response.category, { id: response._id });
+    if(categoryResponse.error) { return { error: categoryResponse.error }}
+
+    return { data: response }
+  } catch(error) {
+    return { error }
+  }
+}
+
 module.exports.GetAll = _getAll;
 module.exports.FindById = _findById;
 module.exports.Create = _create;
 module.exports.Update = _update;
+module.exports.Delete = _delete;

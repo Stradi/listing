@@ -48,8 +48,18 @@ const _addItem = async (id, data) => {
   }
 }
 
+const _deleteItem = async (id, data) => {
+  try {
+    const response = await Model.findByIdAndUpdate(id, { $pull: { items: { _id: data.id }}});
+    return { data: response }
+  } catch(error) {
+    return { error }
+  }
+}
+
 module.exports.GetAll = _getAll;
 module.exports.FindById = _findById;
 module.exports.Create = _create;
 module.exports.Update = _update;
 module.exports.AddItem = _addItem;
+module.exports.DeleteItem = _deleteItem;

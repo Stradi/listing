@@ -17,4 +17,8 @@ Router.post("/", Controller.Create);
 // Updates existing ListingItem object
 Router.patch("/:id", Controller.Update);
 
+// DELETE /api/v1/ListingItem/:id
+// Deletes ListingItem object
+Router.delete("/:id", Controller.Delete);
+
 module.exports = Router;
