@@ -43,7 +43,7 @@ const _update = async (id, data) => {
 const _delete = async (id) => {
   try {
     const response = await Model.findByIdAndDelete(id);
-    const listingItemResponse = await ListingItemService.DeleteByCategory(id);
+    const listingItemResponse = await ListingItemService.SetCategoryNull(id);
     if(listingItemResponse.error) { return { error: listingItemResponse.error }}
 
     return { data: response }

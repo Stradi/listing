@@ -56,7 +56,7 @@ const _delete = async (id) => {
   }
 }
 
-const _deleteByCategory = async (categoryId) => {
+const _setCategoryNull = async (categoryId) => {
   try {
     const response = await Model.find({ category: categoryId }).updateMany({ category: null });
     return { data: response }
@@ -67,7 +67,7 @@ const _deleteByCategory = async (categoryId) => {
 
 module.exports.GetAll = _getAll;
 module.exports.FindById = _findById;
-module.exports.DeleteByCategory = _deleteByCategory;
+module.exports.SetCategoryNull = _setCategoryNull;
 module.exports.Create = _create;
 module.exports.Update = _update;
 module.exports.Delete = _delete;
