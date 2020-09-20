@@ -1,15 +1,30 @@
 const Model = require("../models").ListingItem;
 
 const _getAll = async () => {
-  return await Model.find();
+  try {
+    const response = await Model.find();
+    return { data: response }
+  } catch(error) {
+    return { error }
+  }
 }
 
 const _findById = async (id) => {
-  return await Model.findById(id);
+  try {
+    const response = await Model.findById(id);
+    return { data: response }
+  } catch(error) {
+    return { error }
+  }
 }
 
 const _create = async (data) => {
-  return await new Model(data).save();
+  try {
+    const response = await new Model(data).save();
+    return { data: response }
+  } catch(error) {
+    return { error }
+  }
 }
 
 module.exports.GetAll = _getAll;
