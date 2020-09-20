@@ -27,6 +27,19 @@ const _create = async (data) => {
   }
 }
 
+const _update = async (id, data) => {
+  try {
+    const item = await _findById(id);
+    if(item.error) { return { error: item.error }}
+
+    const response = await item.data.updateOne(data);
+    return { data: "Success" }
+  } catch(error) {
+    return { error }
+  }
+}
+
 module.exports.GetAll = _getAll;
 module.exports.FindById = _findById;
 module.exports.Create = _create;
+module.exports.Update = _update;
