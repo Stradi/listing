@@ -1,5 +1,7 @@
 const Service = require("../services").Account;
+const TokenHelper = require("../helpers").Token;
 
+//TODO: Remove duplicated code!!! IMPORTANT FOR REFACTORING
 const _getAll = async (req, res) => {
   const obj = await Service.GetAll();
   if(obj.error) {
@@ -24,7 +26,18 @@ const _create = async (req, res) => {
   if(obj.error) {
     return res.json({ error: obj.error });
   } else {
-    return res.json({ data: obj.data });
+    const token = TokenHelper.GenerateAccessToken(obj.data);
+    return res.json({ data: obj.data, token });
+  }
+}
+
+const _login = async (req, res) => {
+  const obj = await Service.Login(req.body);
+  if(obj.error) {
+    return res.json({ error: obj.error });
+  } else {
+    const token = TokenHelper.GenerateAccessToken(obj.data);
+    return res.json({ data: obj.data, token });
   }
 }
 
@@ -49,5 +62,6 @@ const _delete = async (req, res) => {
 module.exports.GetAll = _getAll;
 module.exports.FindById = _findById;
 module.exports.Create = _create;
+module.exports.Login = _login;
 module.exports.Update = _update;
 module.exports.Delete = _delete;

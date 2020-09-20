@@ -13,6 +13,10 @@ Router.get("/:id", Controller.FindById);
 // Create new Account object
 Router.post("/", Controller.Create);
 
+// POST /api/v1/Account/login
+// Authenticate account and return access token
+Router.post("/login", Controller.Login);
+
 // PATCH /api/v1/Account/:id
 // Updates existing Account object
 Router.patch("/:id", Controller.Update);
