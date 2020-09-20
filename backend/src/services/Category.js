@@ -39,7 +39,17 @@ const _update = async (id, data) => {
   }
 }
 
+const _addItem = async (id, data) => {
+  try {
+    const response = await Model.findByIdAndUpdate(id, { $push: { items: data.id }});
+    return { data: response }
+  } catch(error) {
+    return { error }
+  }
+}
+
 module.exports.GetAll = _getAll;
 module.exports.FindById = _findById;
 module.exports.Create = _create;
 module.exports.Update = _update;
+module.exports.AddItem = _addItem;

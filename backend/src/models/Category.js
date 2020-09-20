@@ -6,8 +6,8 @@ const SchemaTypes = mongoose.SchemaTypes;
 
 const CategorySchema = new Schema({
   name: { type: SchemaTypes.String, required: true },
-  description: { type: SchemaTypes.String }
-  //TODO: Add ListingItem resource as reference
+  description: { type: SchemaTypes.String },
+  items: [{ type: SchemaTypes.ObjectId, ref: "ListingItem" }]
 });
 
 CategorySchema.plugin(uniqueValidator);

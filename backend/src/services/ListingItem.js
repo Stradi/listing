@@ -1,4 +1,5 @@
 const Model = require("../models").ListingItem;
+const CategoryService = require("./Category");
 
 const _getAll = async () => {
   try {
@@ -21,6 +22,9 @@ const _findById = async (id) => {
 const _create = async (data) => {
   try {
     const response = await new Model(data).save();
+    const categoryResponse = await CategoryService.AddItem(data.category, { id: response._id });
+    if(categoryResponse.error) { return { error: categoryResponse.error }}
+
     return { data: response }
   } catch(error) {
     return { error }
