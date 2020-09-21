@@ -1,5 +1,6 @@
 const Model = require("../models").Account;
 const PasswordHelper = require("../helpers").Password;
+const TokenHelper = require("../helpers").Token;
 
 const _getAll = async () => {
   try {
@@ -38,7 +39,7 @@ const _create = async (data) => {
       passwordSalt: passwordData.salt
     }).save();
 
-    return { data: response }
+    return { data: response, token: TokenHelper.GenerateAccessToken(response) }
   } catch(error) {
     return { error }
   }
@@ -59,7 +60,7 @@ const _login = async (data) => {
       return { error: "Password is wrong." }
     }
 
-    return { data: account.data }  
+    return { data: account.data, token: TokenHelper.GenerateAccessToken(account) }  
   } catch(error) {
     return { error }
   }

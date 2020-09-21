@@ -1,62 +1,36 @@
 const Service = require("../services").Account;
-const TokenHelper = require("../helpers").Token;
 
-//TODO: Remove duplicated code!!! IMPORTANT FOR REFACTORING
-const _getAll = async (req, res) => {
-  const obj = await Service.GetAll();
+const _cb = async (req, res, fn, ...args) => {
+  const obj = await fn(...args);
   if(obj.error) {
     return res.json({ error: obj.error });
   } else {
-    return res.json({ data: obj.data });
+    return res.json({ content: obj });
   }
+}
+
+const _getAll = async (req, res) => {
+  return await _cb(req, res, Service.GetAll);
 }
 
 const _findById = async (req, res) => {
-  const obj = await Service.FindById(req.params.id);
-  if(obj.error) {
-    return res.json({ error: obj.error });
-  } else {
-    return res.json({ data: obj.data });
-  }
+  return await _cb(req, res, Service.FindById, req.params.id);
 }
 
 const _create = async (req, res) => {
-  const data = req.body;
-  const obj = await Service.Create(data);
-  if(obj.error) {
-    return res.json({ error: obj.error });
-  } else {
-    const token = TokenHelper.GenerateAccessToken(obj.data);
-    return res.json({ data: obj.data, token });
-  }
+  return await _cb(req, res, Service.Create, req.body);
 }
 
 const _login = async (req, res) => {
-  const obj = await Service.Login(req.body);
-  if(obj.error) {
-    return res.json({ error: obj.error });
-  } else {
-    const token = TokenHelper.GenerateAccessToken(obj.data);
-    return res.json({ data: obj.data, token });
-  }
+  return await _cb(req, res, Service.Login, req.body);
 }
 
 const _update = async (req, res) => {
-  const obj = await Service.Update(req.params.id, req.body);
-  if(obj.error) {
-    return res.json({ error: obj.error });
-  } else {
-    return res.json({ data: obj.data });
-  }
+  return await _cb(req, res, Service.Update, req.params.id, req.body);
 }
 
 const _delete = async (req, res) => {
-  const obj = await Service.Delete(req.params.id);
-  if(obj.error) {
-    return res.json({ error: obj.error });
-  } else {
-    return res.json({ data: obj.data });
-  }
+  return await _cb(req, res, Service.Delete, req.params.id);
 }
 
 module.exports.GetAll = _getAll;
