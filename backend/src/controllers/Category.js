@@ -1,53 +1,25 @@
 const Service = require("../services").Category;
+const SendResponse = require("../helpers").Response;
 
 const _getAll = async (req, res) => {
-  const obj = await Service.GetAll();
-  if(obj.error) {
-    return res.json({ error: obj.error });
-  } else {
-    return res.json({ data: obj.data });
-  }
+  return await SendResponse(req, res, Service.GetAll);
 }
 
 const _findById = async (req, res) => {
-  const obj = await Service.FindById(req.params.id);
-  if(obj.error) {
-    return res.json({ error: obj.error });
-  } else {
-    return res.json({ data: obj.data });
-  }
+  return await SendResponse(req, res, Service.FindById, req.params.id);
 }
 
 const _create = async (req, res) => {
-  const data = req.body;
-  if(!data.name || data.name == null || data.name == undefined) {
-    return res.json({ error: { message: "Name field should be filled" }});
-  }
-
-  const obj = await Service.Create(data);
-  if(obj.error) {
-    return res.json({ error: obj.error });
-  } else {
-    return res.json({ data: obj.data });
-  }
+  //TODO: Add validation!!
+  return await SendResponse(req, res, Service.Create, req.body);
 }
 
 const _update = async (req, res) => {
-  const obj = await Service.Update(req.params.id, req.body);
-  if(obj.error) {
-    return res.json({ error: obj.error });
-  } else {
-    return res.json({ data: obj.data });
-  }
+  return await SendResponse(req, res, Service.Update, req.params.id, req.body);
 }
 
 const _delete = async (req, res) => {
-  const obj = await Service.Delete(req.params.id);
-  if(obj.error) {
-    return res.json({ error: obj.error });
-  } else {
-    return res.json({ data: obj.data });
-  }
+  return await SendResponse(req, res, Service.Delete, req.params.id);
 }
 
 module.exports.GetAll = _getAll;
