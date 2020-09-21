@@ -1,24 +1,24 @@
 const Service = require("../services").ListingItem;
 const SendResponse = require("../helpers").Response;
 
-const _getAll = async (req, res) => {
-  return await SendResponse(req, res, Service.GetAll);
+const _getAll = async (req, res, next) => {
+  return await SendResponse(req, res, next, Service.GetAll);
 }
 
-const _findById = async (req, res) => {
-  return await SendResponse(req, res, Service.FindById, req.params.id);
+const _findById = async (req, res, next) => {
+  return await SendResponse(req, res, next, Service.FindById, req.params.id);
 }
 
-const _create = async (req, res) => {
-  return await SendResponse(req, res, Service.Create, req.body);
+const _create = async (req, res, next) => {
+  return await SendResponse(req, res, next, Service.Create, req.body);
 }
 
-const _update = async (req, res) => {
-  return await SendResponse(req, res, Service.Update, req.params.id, req.body);
+const _update = async (req, res, next) => {
+  return await SendResponse(req, res, next, Service.Update, req.params.id, req.body);
 }
 
-const _delete = async (req, res) => {
-  return await SendResponse(req, res, Service.Delete, req.params.id);
+const _delete = async (req, res, next) => {
+  return await SendResponse(req, res, next, Service.Delete, req.params.id);
 }
 
 module.exports.GetAll = _getAll;

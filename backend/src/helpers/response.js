@@ -1,10 +1,11 @@
-const _cb = async (req, res, fn, ...args) => {
-  const obj = await fn(...args);
-  if(obj.error) {
-    return res.json({ error: obj.error });
-  } else {
+const _cb = async (req, res, next, fn, ...args) => {
+  try {
+    const obj = await fn(...args);
     return res.json({ content: obj });
+  } catch(error) {
+    return next(error);
   }
+  
 }
 
 module.exports = _cb;

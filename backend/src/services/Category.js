@@ -2,72 +2,40 @@ const Model = require("../models").Category;
 const ListingItemService = require("./ListingItem");
 
 const _getAll = async () => {
-  try {
-    const response = await Model.find().populate("items");
-    return { data: response }
-  } catch(error) {
-    return { error }
-  }
+  const response = await Model.find().populate("items");
+  return { data: response }
 }
 
 const _findById = async (id) => {
-  try {
-    const response = await Model.findById(id).populate("items");
-    return { data: response }
-  } catch(error) {
-    return { error }
-  }
+  const response = await Model.findById(id).populate("items");
+  return { data: response }
 }
 
 const _create = async (data) => {
-  try {
-    const response = await new Model(data).save();
-    return { data: response }
-  } catch(error) {
-    return { error }
-  }
+  const response = await new Model(data).save();
+  return { data: response }
 }
 
 const _update = async (id, data) => {
-  try {
-    const item = await _findById(id);
-    if(item.error) { return { error: item.error }}
-
-    const response = await item.data.updateOne(data);
-    return { data: "Success" }
-  } catch(error) {
-    return { error }
-  }
+  const item = await _findById(id);
+  await item.data.updateOne(data);
+  return { data: "Success" }
 }
 
 const _delete = async (id) => {
-  try {
-    const response = await Model.findByIdAndDelete(id);
-    const listingItemResponse = await ListingItemService.SetCategoryNull(id);
-    if(listingItemResponse.error) { return { error: listingItemResponse.error }}
-
-    return { data: response }
-  } catch(error) {
-    return { error }
-  }
+  const response = await Model.findByIdAndDelete(id);
+  await ListingItemService.SetCategoryNull(id);
+  return { data: response }
 }
 
 const _addItem = async (id, data) => {
-  try {
-    const response = await Model.findByIdAndUpdate(id, { $push: { items: data.id }});
-    return { data: response }
-  } catch(error) {
-    return { error }
-  }
+  const response = await Model.findByIdAndUpdate(id, { $push: { items: data.id }});
+  return { data: response }
 }
 
 const _deleteItem = async (id, data) => {
-  try {
-    const response = await Model.findByIdAndUpdate(id, { $pull: { items: { _id: data.id }}});
-    return { data: response }
-  } catch(error) {
-    return { error }
-  }
+  const response = await Model.findByIdAndUpdate(id, { $pull: { items: { _id: data.id }}});
+  return { data: response }
 }
 
 module.exports.GetAll = _getAll;
