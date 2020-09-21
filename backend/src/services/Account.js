@@ -2,6 +2,9 @@ const Model = require("../models").Account;
 const PasswordHelper = require("../helpers").Password;
 const TokenHelper = require("../helpers").Token;
 
+const NotFoundError = require("../errors").NotFound;
+const BaseError = require("../errors").BaseError;
+
 const _getAll = async () => {
   const response = await Model.find();
   return { data: response }
@@ -35,12 +38,12 @@ const _login = async (data) => {
 
   const account = await _findByUsername(username);
   if(!account.data || account.data == null || account.data == undefined) {
-    throw new Error("Account not found.");
+    throw new NotFoundError("account");
   }
 
   const isPasswordValid = PasswordHelper.ValidatePassword(password, account.data.passwordHash, account.data.passwordSalt);
   if(!isPasswordValid) {
-    throw new Error("Password is wrong.");
+    throw new BaseError("INVALID_PASSWORD", "Password is invalid", 401);
   }
 
   return { data: account.data, token: TokenHelper.GenerateAccessToken(account) }  
