@@ -1,0 +1,19 @@
+.category {
+  display: inline-block;
+  height: 300px;
+  width: 200px;
+  overflow: hidden;
+  overflow-y: scroll;
+
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.category li:nth-child(even) {
+  background-color: gray;
+}
+
+.category li:nth-child(odd) {
+  background-color: darkgray;
+}

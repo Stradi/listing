@@ -1,10 +1,13 @@
+//TODO: Add Navbar component to display in all pages.
+
 import React from "react";
 
 import "./App.css";
+import Home from "./pages/Home";
 
 function App() {
   return (
-    <h1>My React Application</h1>
+    <Home/>
   );
 }
 
