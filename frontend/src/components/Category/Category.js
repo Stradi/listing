@@ -6,7 +6,7 @@ import "./Category.css";
 function Category(props) {
   const { name, items } = props;
   const allItems = items.map((item) => {
-    return <ListingItem id={item.id} name={item.name} />
+    return <ListingItem id={item.id} name={item.name} key={item._id} />
   });
 
   return (
