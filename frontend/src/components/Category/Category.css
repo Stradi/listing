@@ -1,19 +1,28 @@
 .category {
-  display: inline-block;
-  height: 300px;
-  width: 200px;
-  overflow: hidden;
-  overflow-y: scroll;
+  width: 200px; /* May change */
+  margin: 5px;
+}
 
+.category__title {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.category__items {
+  height: 250px;
   list-style: none;
   padding: 0;
   margin: 0;
+  
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
-.category li:nth-child(even) {
+.category__items li:nth-child(even) {
   background-color: gray;
 }
 
-.category li:nth-child(odd) {
+.category__items li:nth-child(odd) {
   background-color: darkgray;
 }

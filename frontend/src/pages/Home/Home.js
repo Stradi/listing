@@ -1,8 +1,9 @@
 //TODO: Fetch data from API, pass that data to ListGroup component (name may change).
 
-import React from "react";
+import React, { useState } from "react";
 
 import Category from "../../components/Category";
+import "./Home.css";
 
 function Home() {
   const items = [
@@ -23,7 +24,9 @@ function Home() {
   ]
 
   return (
-    <Category items={items}/>
+    <div className="category-list">
+      <Category name="Category 1" items={items}/>
+    </div>
   );
 }
 
